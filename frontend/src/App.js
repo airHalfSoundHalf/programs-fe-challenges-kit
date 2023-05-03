@@ -14,6 +14,14 @@ class App {
       }
     });
 
+    // 토글 체크박스
+    this.toggleChx = new Toggle({
+      $target,
+      // onClick: (e) => {
+      //   console.log('e:', e)
+      // }
+    });
+
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
@@ -30,7 +38,7 @@ class App {
       data: {
         visible: false,
         image: null
-      }
+      },
     });
   }
 
