@@ -14,6 +14,16 @@ class App {
       }
     });
 
+    // 토글 체크박스
+    this.toggleChx = new Toggle({
+      $target,
+      onChange: (isDarkMode) => {
+        this.toggleChx.setState({
+          isDarkMode
+        })
+      }
+    });
+
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
@@ -30,7 +40,7 @@ class App {
       data: {
         visible: false,
         image: null
-      }
+      },
     });
   }
 
