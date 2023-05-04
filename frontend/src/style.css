@@ -47,7 +47,6 @@ body {
   margin: 1.5em auto;
   max-width: 1200px;
   column-gap: 1.5em;
-  overflow: hidden;
 }
 
 .SearchResult {
@@ -68,11 +67,11 @@ body {
   display: inline-block;
   margin: 0 0 1em;
   width: 100%;
+  cursor: pointer;
 }
 
 .SearchInput {
-  width: 90%;
-  float: right;
+  width: 100%;
   font-size: 40px;
   padding: 10px 15px;
 }
@@ -96,6 +95,10 @@ body {
   padding: 5px;
 }
 
+.ImageInfo .title .close {
+  cursor: pointer;
+}
+
 .ImageInfo .content-wrapper {
   position: absolute;
   left: 50%;
@@ -110,12 +113,9 @@ body {
   width: 100%;
 }
 
-.toggle-area {
-  width: 10%;
-  float: left;
-  text-align: center;
-  line-height: 75px;
-}
+
+/* .toggle-area {
+} */
 
 #toggleChk {
   background-color: #ccc;

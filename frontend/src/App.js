@@ -14,8 +14,7 @@ class App {
       }
     });
 
-    // 토글 체크박스
-    this.toggleChx = new Toggle({
+    this.toggleChx = new ThemeMode({
       $target,
       onChange: (isDarkMode) => {
         this.toggleChx.setState({
