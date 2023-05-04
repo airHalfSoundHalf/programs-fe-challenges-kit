@@ -47,7 +47,6 @@ body {
   margin: 1.5em auto;
   max-width: 1200px;
   column-gap: 1.5em;
-  overflow: hidden;
 }
 
 .SearchResult {
@@ -55,6 +54,13 @@ body {
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-gap: 10px;
+}
+
+.SearchResult .empty {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .SearchResult img {
@@ -68,11 +74,11 @@ body {
   display: inline-block;
   margin: 0 0 1em;
   width: 100%;
+  cursor: pointer;
 }
 
 .SearchInput {
-  width: 90%;
-  float: right;
+  width: 100%;
   font-size: 40px;
   padding: 10px 15px;
 }
@@ -96,6 +102,10 @@ body {
   padding: 5px;
 }
 
+.ImageInfo .title .close {
+  cursor: pointer;
+}
+
 .ImageInfo .content-wrapper {
   position: absolute;
   left: 50%;
@@ -110,19 +120,42 @@ body {
   width: 100%;
 }
 
-.toggle-area {
-  width: 10%;
-  float: left;
-  text-align: center;
-  line-height: 75px;
+/* toggle */
+#toggleChk {
+  border: none;
+  cursor: pointer;
 }
 
-#toggleChk {
-  background-color: #ccc;
-  border: none;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+/* loading */
+/* 출처: 챗 GPT */
+.loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.loading .loading-icon {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 7px solid #fff;
+  border-top-color: dodgerblue;
+  animation: spin 1s infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 /****************************** response ******************************/

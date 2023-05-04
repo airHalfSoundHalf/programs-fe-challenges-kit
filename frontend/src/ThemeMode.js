@@ -1,11 +1,10 @@
-class Toggle {
+class ThemeMode {
   isDarkMode = null
   
     constructor({ $target, onChange }) {
-      const $wrappper = document.createElement('div')
       const $toggleChx = document.createElement('input')
-      
-      $wrappper.className = 'toggle-area'
+      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+
       $toggleChx.type = 'checkbox'
       $toggleChx.id = 'toggleChk'
 
@@ -18,12 +17,18 @@ class Toggle {
       this.$toggleChx = $toggleChx    
 
       // 자식노드 추가
-      $target.appendChild($wrappper)
-      $wrappper.appendChild($toggleChx)
+      $target.appendChild($toggleChx)
 
       // props
       $toggleChx.addEventListener('change', (e) => {
         onChange(e.target.checked)
+      })
+
+      // 첫 렌더링 시 앱 테마모드 감지
+      document.addEventListener('DOMContentLoaded', () => {
+        if(!isDarkMode) return;
+        this.$toggleChx.checked = true
+        document.body.setAttribute('data-theme', 'dark')
       })
 
       // 참조하여 선언
@@ -33,17 +38,8 @@ class Toggle {
     setTheme(theme) {
       if(!window.matchMedia) return;
 
-      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-
-      // 첫 렌더링 시 앱 테마모드 감지
-      document.addEventListener('DOMContentLoaded', () => {
-        if(!isDarkMode) return;
-        this.$toggleChx.checked = true
-        document.body.setAttribute('data-theme', 'dark')
-      })
-      
       // 바인딩
-      theme = isDarkMode ? 'dark ': 'light'
+      theme = this.isDarkMode ? 'dark ': 'light'
       document.body.dataset.theme = theme
 
       this.setThemeMode(this.isDarkMode)
@@ -63,7 +59,3 @@ class Toggle {
     
     render() {}
   }
-
-  
-
- 
