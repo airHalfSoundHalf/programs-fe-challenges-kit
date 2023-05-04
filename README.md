@@ -1,4 +1,4 @@
-# FE 채용 과제로 배우는 자바스크립트
+# FE 채용 과제로 배우는 바닐라 자바스크립트
 
 ## 1-1_레이아웃, 기본 API 요청
 <details>
@@ -7,14 +7,6 @@
 https://github.com/learn-programmers/KDC_jsTest/issues/1#issue-1674154300
 </div>
 </details>
-
-기초 API 요청 확인 및 수정  
-* 진행중  
-
-반응형웹  
-다크모드 & 다크모드 토글  
-시맨틱 마크업  
-반응형웹  
 
 <br >
 
@@ -25,6 +17,8 @@ https://github.com/learn-programmers/KDC_jsTest/issues/1#issue-1674154300
 https://github.com/learn-programmers/KDC_jsTest/issues/2#issue-1674154700
 </div>
 </details>
+
+- 진행중 
 
 <br >
 
