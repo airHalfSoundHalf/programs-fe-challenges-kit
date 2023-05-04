@@ -5,6 +5,23 @@
   font-style: normal;
 }
 
+/****************************** common ******************************/
+
+:root {
+  --background: #000;
+  --textColor: white;
+}
+
+body[data-theme='light'] {
+  background-color: white;
+  color: #000;
+}
+
+body[data-theme='dark'] {
+  background-color: #000;
+  color: white;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -13,16 +30,24 @@ body * {
   font-family: Goyang;
 }
 
+body {
+  background-color: var(--background);
+  color: var(--textColor);
+}
+
 *,
 *:before,
 *:after {
   box-sizing: inherit;
 }
 
+/****************************** style ******************************/
+
 #App {
   margin: 1.5em auto;
   max-width: 1200px;
   column-gap: 1.5em;
+  overflow: hidden;
 }
 
 .SearchResult {
@@ -46,7 +71,8 @@ body * {
 }
 
 .SearchInput {
-  width: 100%;
+  width: 90%;
+  float: right;
   font-size: 40px;
   padding: 10px 15px;
 }
@@ -84,6 +110,13 @@ body * {
   width: 100%;
 }
 
+.toggle-area {
+  width: 10%;
+  float: left;
+  text-align: center;
+  line-height: 75px;
+}
+
 #toggleChk {
   background-color: #ccc;
   border: none;
@@ -92,7 +125,7 @@ body * {
   cursor: pointer;
 }
 
-/****************************** Response ******************************/
+/****************************** response ******************************/
 
 @media (max-width: 992px) {
   .SearchResult {
@@ -116,19 +149,18 @@ body * {
   }
 }
 
-
-/****************************** Theme ******************************/
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #000;
-    color: white;
-  }
-}
+/****************************** theme ******************************/
 
 @media (prefers-color-scheme: light) {
   body {
     background-color: white;
     color: #000;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000;
+    color: white;
   }
 }

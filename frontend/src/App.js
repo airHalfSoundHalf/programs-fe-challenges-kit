@@ -17,9 +17,11 @@ class App {
     // 토글 체크박스
     this.toggleChx = new Toggle({
       $target,
-      // onClick: (e) => {
-      //   console.log('e:', e)
-      // }
+      onChange: (isDarkMode) => {
+        this.toggleChx.setState({
+          isDarkMode
+        })
+      }
     });
 
     this.searchResult = new SearchResult({
