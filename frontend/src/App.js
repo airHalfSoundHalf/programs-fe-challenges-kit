@@ -7,12 +7,7 @@ class App {
   constructor($target) {
     this.$target = $target;
 
-    this.searchInput = new SearchInput({
-      $target,
-      onSearch: keyword => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
-      }
-    });
+    this.loading = new LoadingSpinner({ $target });
 
     this.toggleChx = new ThemeMode({
       $target,
@@ -20,6 +15,22 @@ class App {
         this.toggleChx.setState({
           isDarkMode
         })
+      }
+    });
+
+    this.searchInput = new SearchInput({
+      $target,
+      onSearch: keyword => {
+        this.loading.show()
+        api.fetchCats(keyword).then(({ data }) => {
+          try {
+            this.loading.hide()
+            this.setState(data)
+          } catch(error) {
+            // this.loading
+            console.log('error:', error)
+          }
+        });
       }
     });
 
