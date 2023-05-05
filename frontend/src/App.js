@@ -2,15 +2,23 @@ console.log("app is running!");
 
 class App {
   $target = null;
+  $wrap = null;
   data = [];
 
   constructor($target) {
-    this.$target = $target;
+    this.$target = $target
 
-    this.loading = new LoadingSpinner({ $target });
+    // #App > div.wrap > $target*
+    this.$wrap = document.createElement('div')
+    this.$wrap.className = 'wrap'
+    $target.appendChild(this.$wrap)
 
+    // 로딩
+    this.loading = new LoadingSpinner({ $target: this.$wrap });
+
+    // 테마모드
     this.toggleChx = new ThemeMode({
-      $target,
+      $target: this.$wrap,
       onChange: (isDarkMode) => {
         this.toggleChx.setState({
           isDarkMode
@@ -18,8 +26,9 @@ class App {
       }
     });
 
+    // 검색창
     this.searchInput = new SearchInput({
-      $target,
+      $target: this.$wrap,
       onSearch: keyword => {
         this.loading.show()
         api.fetchCats(keyword).then(({ data }) => {
@@ -31,11 +40,30 @@ class App {
             console.log('error:', error)
           }
         });
+      },
+    });
+
+    // 랜덤버튼
+    this.randomButton = new RandomButton({
+      $target: this.$wrap,
+      onRandomSearch: () => {
+        this.loading.show()
+        api.fetchRandomCats().then(({ data }) => {
+          console.log('data:', data)
+          // try {
+          //   this.loading.hide()
+
+          // } catch(error) {
+          //   // this.loading
+          //   console.log('error:', error)
+          // }
+        })
       }
     });
 
+    // 검색결과
     this.searchResult = new SearchResult({
-      $target,
+      $target: this.$wrap,
       initialData: this.data,
       onClick: image => {
         this.imageInfo.setState({
@@ -45,8 +73,9 @@ class App {
       }
     });
 
+    // 상세모달
     this.imageInfo = new ImageInfo({
-      $target,
+      $target: this.$wrap,
       data: {
         visible: false,
         image: null
