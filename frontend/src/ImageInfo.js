@@ -4,11 +4,14 @@ class ImageInfo {
 
   constructor({ $target, data }) {
     const $imageInfo = document.createElement("div");
-    $imageInfo.className = "ImageInfo";
     this.$imageInfo = $imageInfo;
+    this.data = data;
+
+    $imageInfo.className = "image-info";
+    
     $target.appendChild($imageInfo);
 
-    this.data = data;
+
 
     this.render();
   }
@@ -57,7 +60,7 @@ class ImageInfo {
     this.$imageInfo.addEventListener('click', (e) => {
       let targetClassNm = e.target.className
       if (
-        targetClassNm.includes('ImageInfo') ||
+        targetClassNm.includes('image-info') ||
         targetClassNm === 'close'
       ) {
         this.closeImageInfo()

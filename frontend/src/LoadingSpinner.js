@@ -1,11 +1,12 @@
 class LoadingSpinner {
-    $loading = null;
+    $loading = null
     state = { show: false }
 
     constructor({ $target }) {
         const $loading = document.createElement('div')
         this.$loading = $loading
-        
+
+        $loading.className = 'loading-container'
         $target.appendChild($loading)
 
         this.render()
@@ -14,13 +15,13 @@ class LoadingSpinner {
     show() {
         this.setState({
           show: true,
-        });
+        })
       }
     
       hide() {
         this.setState({
           show: false,
-        });
+        })
       }
 
     setState(nextData) {
@@ -30,10 +31,10 @@ class LoadingSpinner {
 
   render() {
     if(this.state.show) {
-        this.$loading.innerHTML = `<div class='loading'><div class='loading-icon'></div></div>`;
-        this.$loading.style.display = 'block';
+        this.$loading.innerHTML = `<div class='loading'><div class='loading-icon'></div></div>`
+        this.$loading.style.display = 'block'
     } else {
-        this.$loading.style.display = 'none';
+        this.$loading.style.display = 'none'
     }
   }
 }

@@ -7,6 +7,8 @@ class ThemeMode {
 
       $toggleChx.type = 'checkbox'
       $toggleChx.id = 'toggleChk'
+      // 자식노드 추가
+      $target.appendChild($toggleChx)
 
       /**
        * this로 선언하는 이유?
@@ -15,9 +17,6 @@ class ThemeMode {
        * 3. input 요소를 인스턴스의 데이터 속성으로 추가하고, 상태가 변경되면 자동으로 화면을 업데이트한다.
        */
       this.$toggleChx = $toggleChx    
-
-      // 자식노드 추가
-      $target.appendChild($toggleChx)
 
       // props
       $toggleChx.addEventListener('change', (e) => {
