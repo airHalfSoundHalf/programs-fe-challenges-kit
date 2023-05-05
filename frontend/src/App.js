@@ -33,10 +33,9 @@ class App {
         this.loading.show()
         api.fetchCats(keyword).then(({ data }) => {
           try {
-            this.loading.hide()
             this.setState(data)
+            this.loading.hide()
           } catch(error) {
-            // this.loading
             console.log('error:', error)
           }
         });
@@ -49,14 +48,12 @@ class App {
       onRandomSearch: () => {
         this.loading.show()
         api.fetchRandomCats().then(({ data }) => {
-          console.log('data:', data)
-          // try {
-          //   this.loading.hide()
-
-          // } catch(error) {
-          //   // this.loading
-          //   console.log('error:', error)
-          // }
+          try {
+            this.setState(data)
+            this.loading.hide()
+          } catch(error) {
+            console.log('error:', error)
+          }
         })
       }
     });
