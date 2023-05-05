@@ -11,8 +11,6 @@ class SearchResult {
     this.$searchResult.className = "search-result";
     $target.appendChild(this.$searchResult);
 
-
-
     this.render();
   }
 

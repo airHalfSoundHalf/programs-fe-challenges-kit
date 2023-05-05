@@ -13,7 +13,7 @@ class RandomButton {
     $wrapper.appendChild($randomButton)
 
     $randomButton.addEventListener("click", e => {
-        onRandomSearch('귀여운고양이')
+        onRandomSearch('고양이')
     })
 
     console.log("SearchInput created.", this)

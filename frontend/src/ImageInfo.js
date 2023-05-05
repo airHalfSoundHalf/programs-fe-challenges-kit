@@ -8,12 +8,31 @@ class ImageInfo {
     this.data = data;
 
     $imageInfo.className = "image-info";
-    
     $target.appendChild($imageInfo);
 
-
-
     this.render();
+  }
+
+  // 이미지 세부정보
+  async getImageDetail(data) {
+    const detail = await api.fetchCatDetail(data.image.id)
+    if(detail) {
+      this.setState({
+        visible: true,
+        image: detail.data
+      })
+    }
+  }
+
+  closeImageInfo() {
+    this.setState({
+      visible: false,
+      image: undefined,
+    });
+  }
+
+  setClose(visible) {
+    if (!visible) this.$imageInfo.style.display = 'none'
   }
 
   setState(nextData) {
@@ -22,20 +41,10 @@ class ImageInfo {
     this.setClose(nextData.visible);
   }
 
-  setClose(visible) {
-    if (!visible) this.$imageInfo.style.display = 'none'
-  }
-
-   closeImageInfo() {
-    this.setState({
-      visible: false,
-      image: undefined,
-    });
-  }
-
   render() {
     if (this.data.visible) {
       const { name, url, temperament, origin } = this.data.image;
+      console.log('this.data.image:', this.data.image)
       
       this.$imageInfo.innerHTML = `
         <div id="modal" class="content-wrapper">
@@ -66,5 +75,12 @@ class ImageInfo {
         this.closeImageInfo()
       }
     });
+
+    // ESC키 제어
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.closeImageInfo()
+      }
+    })
   }
 }
