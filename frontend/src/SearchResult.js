@@ -5,11 +5,13 @@ class SearchResult {
 
   constructor({ $target, initialData, onClick }) {
     this.$searchResult = document.createElement("div");
-    this.$searchResult.className = "SearchResult";
-    $target.appendChild(this.$searchResult);
-
     this.data = initialData;
     this.onClick = onClick;
+    
+    this.$searchResult.className = "search-result";
+    $target.appendChild(this.$searchResult);
+
+
 
     this.render();
   }
