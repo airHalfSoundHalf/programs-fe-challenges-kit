@@ -63,7 +63,7 @@ class App {
       $target: this.$wrap,
       initialData: this.data,
       onClick: image => {
-        this.imageInfo.setState({
+        this.imageInfo.getImageDetail({
           visible: true,
           image
         });
