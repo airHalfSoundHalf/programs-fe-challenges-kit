@@ -7,6 +7,8 @@ class App {
 
   constructor($target) {
     this.$target = $target
+    this.currentPage = 1
+    this.totalPages = 1
 
     // #App > div.wrap > $target*
     this.$wrap = document.createElement('div')
@@ -34,9 +36,10 @@ class App {
         api.fetchCats(keyword).then(({ data }) => {
           try {
             this.setState(data)
+            this.currentPage = 1
             this.loading.hide()
           } catch(error) {
-            console.log('error:', error)
+            console.error('error:', error)
           }
         });
       },
@@ -52,7 +55,7 @@ class App {
             this.setState(data)
             this.loading.hide()
           } catch(error) {
-            console.log('error:', error)
+            console.error('error:', error)
           }
         })
       }
@@ -67,8 +70,32 @@ class App {
           visible: true,
           image
         });
+      },
+      onNextPage: () => {
+        console.log('다음페이지 로딩')
+        window.history.pushState(null, '', this.currentPage + 1)
       }
     });
+
+    this.scrollNextPage = new ScrollNextPage({
+      $target: this.$target,
+      currentPage: this.currentPage,
+      totalPages: this.totalPages,
+      onClick: (page) => {
+        this.currentPage = page
+        this.loading.show();
+        fetchNextPage(this.currentPage).then((data) => {
+          try {
+            this.loading.hide();
+            this.totalPages = Math.ceil(data.length / 20);
+            this.searchResult.setState(data);
+            this.scrollNextPage.setState(this.currentPage, this.totalPages);
+          } catch (error) {
+            console.error(error);
+          }
+        });
+      }
+    })
 
     // 상세모달
     this.imageInfo = new ImageInfo({
