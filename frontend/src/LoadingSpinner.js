@@ -31,7 +31,7 @@ class LoadingSpinner {
 
   render() {
     if(this.state.show) {
-        this.$loading.innerHTML = `<div class='loading'><div class='loading-icon'></div></div>`
+        this.$loading.innerHTML = `<div class='loading'><span class='loading-icon'></span></div>`
         this.$loading.style.display = 'block'
     } else {
         this.$loading.style.display = 'none'
