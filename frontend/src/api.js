@@ -3,7 +3,11 @@ const API_ENDPOINT =
 
 const api = {
   fetchCats: async keyword => {
-    const res = await fetch(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
+    const res = await fetch(`${API_ENDPOINT}/api/cats/search?q=${keyword}&limit=10`);
+    return await res.json();
+  },
+  fetchNextPage: async (keyword, page) => {
+    const res = await fetch(`${API_ENDPOINT}/api/cats/search?q=${keyword}&page=${page}`);
     return await res.json();
   },
   fetchCatDetail: async id => {
