@@ -9,13 +9,19 @@ class SearchInput {
     $searchInput.placeholder = "고양이를 검색해보세요.|";
     $target.appendChild($searchInput);
 
-    $searchInput.addEventListener("keyup", e => {
-      if (e.keyCode === 13) {
+    $searchInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') {
         onSearch(e.target.value);
+        this.SearchHistory.onSearchAddKeyword(e.target.value)
       }
     });
 
-    console.log("SearchInput created.", this);
+    this.SearchHistory = new SearchHistory({
+      $target,
+      onSearch
+    })
+
   }
+  
   render() {}
 }

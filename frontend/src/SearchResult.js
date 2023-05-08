@@ -37,11 +37,11 @@ class SearchResult {
   this.observer.observe(el)
 }
 
-/**
- * 조건: 스크롤 시, 마지막 엘리먼트 요소에 접근
- * @todo
- * 버그: 마지막 요소 접근 후 스크롤 시 1번이 아닌 여러 번 찍힘
- */
+  /**
+   * 조건: 스크롤 시, 마지막 엘리먼트 요소에 접근
+   * @todo
+   * 버그: 마지막 요소 접근 후 스크롤 시 1번이 아닌 여러 번 찍힘
+   */
   applyEventToElement = (items) => {
     document.addEventListener('scroll', () => {
       items.forEach((el, idx) => {
