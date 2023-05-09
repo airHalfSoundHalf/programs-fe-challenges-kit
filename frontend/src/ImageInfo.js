@@ -44,7 +44,6 @@ class ImageInfo {
   render() {
     if (this.data.visible) {
       const { name, url, temperament, origin } = this.data.image;
-      console.log('this.data.image:', this.data.image)
       
       this.$imageInfo.innerHTML = `
         <div id="modal" class="content-wrapper">
