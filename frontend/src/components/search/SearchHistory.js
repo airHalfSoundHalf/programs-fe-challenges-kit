@@ -3,14 +3,18 @@ class SearchHistory {
     data = null
 
     constructor({ $target, onSearch, onAdd }) {
-        const $searchHistory = document.createElement('ul')
+        const $wrapper = document.createElement('div')
+        const $searchHistory = document.createElement('ol')
 
+        this.$wrapper = $wrapper
         this.$searchHistory = $searchHistory
-        $searchHistory.className = 'search-history'
-        $target.appendChild(this.$searchHistory)
-
         this.onSearch = onSearch
         this.onAdd = onAdd
+        
+        $wrapper.className = 'search-history'
+        $target.appendChild(this.$wrapper)
+        $wrapper.appendChild(this.$searchHistory)
+
         this.init()
         this.render()
     }
@@ -35,11 +39,11 @@ class SearchHistory {
     // 검색 시 이전 검색키워드 포함하여 저장
     onSearchAddKeyword(newValue) {
         const getSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색내역)
+
         const condition = getSearchData === null ? [] : getSearchData.split(',')
         const currentHistories = [newValue, ...condition].slice(0, 5).join(',')
 
         localStorage.setItem(LOCAL_STORAGE_KEY.검색내역, currentHistories)
-
         this.init()
     }
     

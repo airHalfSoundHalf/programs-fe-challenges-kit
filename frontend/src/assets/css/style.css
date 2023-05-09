@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Goyang";
-  src: url("/src/fonts/Goyang.woff") format("woff");
+  src: url("/src/assets/fonts/Goyang.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -60,13 +60,6 @@ body {
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-gap: 10px;
-}
-
-.search-result .empty {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .search-result img {
@@ -162,6 +155,34 @@ body {
 
 .btn-container .random-button:hover {
   background-color: rgb(6, 118, 230)
+}
+
+.search-history{
+  width: 100%;
+}
+
+.search-history ol {
+  /* list-style: none; */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0 20px;
+}
+
+.search-history ol li button{
+  background: none;
+  border: none;
+  text-decoration: underline;
+}
+/* empty */
+.empty-container .empty {
+  font-size: 30px;
+  text-align: center;
+  padding: 100px;
+}
+
+.empty-container .danger{
+  color: crimson;
 }
 
 /* loading */
