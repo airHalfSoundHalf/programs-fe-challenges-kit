@@ -1,15 +1,13 @@
 console.log("app is running!");
 
 class App {
-  $target = null;
-  $wrap = null;
-  data = [];
-  currentPage = 1;
+  $target = null
+  $wrap = null
+  data = []
+  currentPage = 1
 
   constructor($target) {
     this.$target = $target
-    // this.currentPage = 1
-    this.totalPages = 1
 
     // #App > div.wrap > $target*
     this.$wrap = document.createElement('div')
@@ -36,8 +34,12 @@ class App {
         this.loading.show()
         api.fetchCats(keyword).then(({ data }) => {
           try {
-            this.setState(data)
             this.currentPage = 1
+            
+            this.setState(data)
+            this.saveKeywordResult(data)
+            this.keepInputResult(keyword)
+
             this.loading.hide()
           } catch(error) {
             console.error('error:', error)
@@ -78,11 +80,12 @@ class App {
 
         api.fetchNextPage('cat', currentPage).then(({ data }) => {
           try {
-            let newData = this.data.concat(data)
-
-            this.setState(newData)
+            /* @todo: 다음페이지 이동 */
             this.currentPage = currentPage
             window.history.pushState(null, '', currentPage)
+
+            let newData = this.data.concat(data)
+            this.setState(newData)
 
             this.loading.hide()
           } catch(error) {
@@ -92,26 +95,6 @@ class App {
       }
     });
 
-    // this.scrollNextPage = new ScrollNextPage({
-    //   $target: this.$target,
-    //   currentPage: this.currentPage,
-    //   totalPages: this.totalPages,
-    //   onClick: (page) => {
-    //     this.currentPage = page
-    //     this.loading.show();
-    //     fetchNextPage(this.currentPage).then((data) => {
-    //       try {
-    //         this.loading.hide();
-    //         this.totalPages = Math.ceil(data.length / 20);
-    //         this.searchResult.setState(data);
-    //         this.scrollNextPage.setState(this.currentPage, this.totalPages);
-    //       } catch (error) {
-    //         console.error(error);
-    //       }
-    //     });
-    //   }
-    // })
-
     // 상세모달
     this.imageInfo = new ImageInfo({
       $target: this.$wrap,
@@ -120,11 +103,33 @@ class App {
         image: null
       },
     });
+
+    this.init()
   }
 
   setState(nextData) {
-    console.log(this);
     this.data = nextData;
     this.searchResult.setState(nextData);
+  }
+
+  // 로컬스토리지에 검색 키워드 직렬화 저장
+  saveKeywordResult(value) {
+    localStorage.setItem(LOCAL_STORAGE_KEY.검색결과, JSON.stringify(value))
+  }
+
+  // 최근 검색키워드 유지
+  keepInputResult(value) {
+    document.querySelector('.search-input').value = value
+  }
+  
+  init() {
+    // 검색된 키워드 데이터 역직렬화
+    const getSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색결과) ?? []
+    const deSerialization = JSON.parse(getSearchData)
+    this.setState(deSerialization)
+
+    // 로컬스토리지에 저장된 최근키워드 접근
+    const getSaveSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색내역) ?? []
+    this.keepInputResult(getSaveSearchData.split(',')[0])
   }
 }
