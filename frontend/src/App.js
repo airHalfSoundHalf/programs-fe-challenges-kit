@@ -35,7 +35,6 @@ class App {
         api.fetchCats(keyword).then(({ data }) => {
           try {
             this.currentPage = 1
-            
             this.setState(data)
             this.saveKeywordResult(data)
             this.keepInputResult(keyword)
@@ -77,7 +76,6 @@ class App {
       onNextPage: () => {
         this.loading.show()
         const currentPage = this.currentPage + 1
-
         api.fetchNextPage('cat', currentPage).then(({ data }) => {
           try {
             /* @todo: 다음페이지 이동 */
@@ -112,9 +110,9 @@ class App {
     this.searchResult.setState(nextData);
   }
 
-  // 로컬스토리지에 검색 키워드 직렬화 저장
+  // 로컬스토리지에 검색키워드 직렬화 저장
   saveKeywordResult(value) {
-    localStorage.setItem(LOCAL_STORAGE_KEY.검색결과, JSON.stringify(value))
+    localStorage.setItem(LOCAL_STORAGE_KEY.검색결과, JSON.stringify(value ?? []))
   }
 
   // 최근 검색키워드 유지
@@ -124,12 +122,12 @@ class App {
   
   init() {
     // 검색된 키워드 데이터 역직렬화
-    const getSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색결과) ?? []
+    const getSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색결과)
     const deSerialization = JSON.parse(getSearchData)
     this.setState(deSerialization)
 
     // 로컬스토리지에 저장된 최근키워드 접근
-    const getSaveSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색내역) ?? []
-    this.keepInputResult(getSaveSearchData.split(',')[0])
+    const getSaveSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색내역)
+    this.keepInputResult(getSaveSearchData === null ? null : getSaveSearchData.split(',')[0])
   }
 }

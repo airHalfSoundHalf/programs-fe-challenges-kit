@@ -8,15 +8,21 @@ class SearchResult {
     this.data = initialData;
     this.onClick = onClick;
     this.onNextPage = onNextPage;
-    
+
+    this.Empty = new Empty({
+      $target
+    })
+
     this.$searchResult.className = "search-result";
     $target.appendChild(this.$searchResult);
+
 
     this.render();
   }
 
   setState(nextData) {
     this.data = nextData;
+    this.Empty.show(nextData)
     this.render();
   }
 
@@ -55,13 +61,6 @@ class SearchResult {
     })
   }
 
-
-  /**
-   * @example 검색 키워드: qqqq(빈배열), 엔터키(undefined)
-   * @todo
-   * 버그: 검색 시 this.data 값이 undefined일 때는 else로 넘어가지만, 빈 배열로 받는 경우에는 if문 true로 처리되고 있음
-   * if문에 !== 조건을 넣을 시 첫 렌더링때 else로 넘어가기 때문에 다른방안 체크
-   */  
   render() {
     if(this.data) {
     this.$searchResult.innerHTML = this.data
@@ -73,8 +72,6 @@ class SearchResult {
         `
       )
       .join("");
-    } else {
-      this.$searchResult.innerHTML = `<p class='empty'>검색결과가 없습니다.</p>`
     }
     
     this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
