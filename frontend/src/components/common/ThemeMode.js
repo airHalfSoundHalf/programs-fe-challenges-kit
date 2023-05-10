@@ -2,13 +2,16 @@ class ThemeMode {
   isDarkMode = null
   
     constructor({ $target, onChange }) {
+      const $wrapper = document.createElement('div')
       const $toggleChx = document.createElement('input')
-      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
 
+      $wrapper.className = 'theme-container'
       $toggleChx.type = 'checkbox'
       $toggleChx.id = 'toggleChk'
+      
       // 자식노드 추가
-      $target.appendChild($toggleChx)
+      $target.appendChild($wrapper)
+      $wrapper.appendChild($toggleChx)
 
       /**
        * this로 선언하는 이유?
@@ -22,6 +25,8 @@ class ThemeMode {
       $toggleChx.addEventListener('change', (e) => {
         onChange(e.target.checked)
       })
+
+      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
 
       // 첫 렌더링 시 앱 테마모드 감지
       document.addEventListener('DOMContentLoaded', () => {

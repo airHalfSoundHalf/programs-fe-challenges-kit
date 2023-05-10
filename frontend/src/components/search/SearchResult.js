@@ -1,86 +1,75 @@
 class SearchResult {
-  $searchResult = null;
-  data = null;
-  onClick = null;
+  $searchResult = null
+  data = null
+  onClick = null
 
   constructor({ $target, initialData, onClick, onNextPage }) {
-    this.$searchResult = document.createElement("div");
-    this.data = initialData;
-    this.onClick = onClick;
-    this.onNextPage = onNextPage;
+    const $wrapper = document.createElement('div')
+    this.$searchResult = document.createElement('ul')
+
+    this.data = initialData
+    this.onClick = onClick
+    this.onNextPage = onNextPage
+    this.$wrapper = $wrapper
+    this.$searchResult = this.$searchResult
+
+    this.$wrapper.className = 'search-result-container'
+    this.$searchResult.className = 'content'
+
+    $target.appendChild($wrapper)
+    $wrapper.appendChild(this.$searchResult)
 
     this.Empty = new Empty({
       $target
     })
 
-    this.$searchResult.className = "search-result";
-    $target.appendChild(this.$searchResult);
-
-
-    this.render();
+    this.render()
   }
 
   setState(nextData) {
-    this.data = nextData;
+    this.data = nextData
     this.Empty.show(nextData)
-    this.render();
+    this.render()
   }
-
-  /**
-   * IntersectionObserver 옵션
-   * {once: true} : 이벤트가 한번만 실행되도록 하는 옵션
-   * but, IntersectionObserver에서만 적용 가능하여, 콜백함수로 넘겨서 addEventListener 이벤트 함수로 사용하면 적용X
-   */
-  // 엘리먼트 노출 여부
-  isElementInViewport(el, callback) {
-    this.observer = new IntersectionObserver(entires => {
-      entires.forEach(entry => {
-        if(entry.isIntersecting) {
-          return callback()
-        }
-      })
-    })
-  this.observer.observe(el)
-}
 
   /**
    * 조건: 스크롤 시, 마지막 엘리먼트 요소에 접근
-   * @todo
-   * 버그: 마지막 요소 접근 후 스크롤 시 1번이 아닌 여러 번 찍힘
+   * 아이템이 화면에 보일 때 마지막 요소를 찾아서 다음페이지의 데이터를 읽어온다.
+   * 아이템이 화면에 보이면 img src 속성 값을 dataset src값으로 바꾼다.(레이지 로딩, 스켈레톤 스크린)
    */
-  applyEventToElement = (items) => {
-    document.addEventListener('scroll', () => {
-      items.forEach((el, idx) => {
-        this.isElementInViewport(el, () => {
-          if (items.length - 1 === idx) {
-            console.log('마지막')
-            this.onNextPage()
-          }
-        })
-      })
+  listObserver = new IntersectionObserver((items, observer) => {
+    items.forEach(item => {
+      if(item.isIntersecting) {
+        item.target.querySelector('img').src = item.target.querySelector('img').dataset.src
+
+        const dataIdx = Number(item.target.dataset.index)
+        if(dataIdx + 1 === this.data.length) {
+          console.log('마지막')
+          this.onNextPage()
+        }
+      }
     })
-  }
+  })
 
   render() {
     if(this.data) {
     this.$searchResult.innerHTML = this.data
       .map(
-        cat => `
-        <div class="item">
-        <img src=${cat.url} alt=${cat.name} />
+        (cat, idx) => `
+        <div class="item" data-index=${idx}>
+        <img src='https://via.placeholder.com/200x300' data-src=${cat.url} alt=${cat.name} />
       </div>
         `
       )
-      .join("");
+      .join('')
     }
     
-    this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
-      $item.addEventListener("click", () => {
-        this.onClick(this.data[index]);
-      });
-    });
+    this.$searchResult.querySelectorAll('.item').forEach(($item, index) => {
+      $item.addEventListener('click', () => {
+        this.onClick(this.data[index])
+      })
 
-    let listItems = this.$searchResult.querySelectorAll(".item")
-    this.applyEventToElement(listItems)
+      this.listObserver.observe($item)
+    })
 }
 }
