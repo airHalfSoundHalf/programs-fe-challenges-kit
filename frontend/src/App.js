@@ -1,5 +1,3 @@
-console.log("app is running!");
-
 class App {
   $target = null
   $wrap = null
@@ -11,7 +9,7 @@ class App {
 
     // #App > div.wrap > $target*
     this.$wrap = document.createElement('div')
-    this.$wrap.className = 'wrap'
+    this.$wrap.className = 'wrapper'
     $target.appendChild(this.$wrap)
 
     // 로딩

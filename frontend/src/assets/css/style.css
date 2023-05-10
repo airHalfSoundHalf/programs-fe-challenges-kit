@@ -48,27 +48,29 @@ body {
   height: 100%;
 }
 
-.wrap {
+.wrapper {
   max-width: 1200px;
   margin: 1.5em auto;
   column-gap: 1.5em;
   overflow: hidden;
 }
 
-.search-result {
+.search-result-container .content {
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-gap: 10px;
+  padding: 0;
 }
 
-.search-result img {
+.search-result-container .content img {
   width: 100%;
   height: 100%;
+  min-height: 300px;
   object-fit: cover;
 }
 
-.search-result .item {
+.search-result-container .content .item {
   background-color: #eee;
   display: inline-block;
   margin: 0 0 1em;
@@ -82,7 +84,7 @@ body {
   padding: 10px 15px;
 }
 
-.image-info {
+.image-info-container {
   position: fixed;
   left: 0;
   top: 0;
@@ -91,21 +93,21 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.image-info .title {
+.image-info-container .title {
   display: flex;
   justify-content: space-between;
 }
 
-.image-info .title,
-.image-info .description {
+.image-info-container .title,
+.image-info-container .description {
   padding: 5px;
 }
 
-.image-info .title .close {
+.image-info-container .title .close {
   cursor: pointer;
 }
 
-.image-info .content-wrapper {
+.image-info-container .content-wrapper {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -115,7 +117,7 @@ body {
   border-radius: 5px;
 }
 
-.image-info .content-wrapper img {
+.image-info-container .content-wrapper img {
   width: 100%;
 }
 
@@ -157,11 +159,11 @@ body {
   background-color: rgb(6, 118, 230)
 }
 
-.search-history{
+.search-history-container {
   width: 100%;
 }
 
-.search-history ol {
+.search-history-container ol {
   /* list-style: none; */
   display: flex;
   flex-direction: column;
@@ -169,7 +171,7 @@ body {
   padding: 0 20px;
 }
 
-.search-history ol li button{
+.search-history-container ol li button{
   background: none;
   border: none;
   text-decoration: underline;
@@ -226,23 +228,23 @@ body {
 /****************************** responsive ******************************/
 
 @media (max-width: 992px) {
-  .search-result {
+  .search-result-container {
     grid-template-columns: repeat(3, minmax(250px, 1fr));
   }
 }
 
 @media (max-width: 768px) {
-  .search-result {
+  .search-result-container {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
 
-  .image-info .content-wrapper {
+  .image-info-container .content-wrapper {
     width: 100%;
   }
 }
 
 @media (max-width: 576px) {
-  .search-result {
+  .search-result-container {
     grid-template-columns: repeat(1, minmax(250px, 1fr));
   }
 }

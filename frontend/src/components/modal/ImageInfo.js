@@ -1,16 +1,16 @@
 class ImageInfo {
-  $imageInfo = null;
-  data = null;
+  $imageInfo = null
+  data = null
 
   constructor({ $target, data }) {
-    const $imageInfo = document.createElement("div");
-    this.$imageInfo = $imageInfo;
-    this.data = data;
+    const $imageInfo = document.createElement("div")
+    this.$imageInfo = $imageInfo
+    this.data = data
 
-    $imageInfo.className = "image-info";
-    $target.appendChild($imageInfo);
+    $imageInfo.className = 'image-info-container'
+    $target.appendChild($imageInfo)
 
-    this.render();
+    this.render()
   }
 
   // 이미지 세부정보
@@ -36,14 +36,14 @@ class ImageInfo {
   }
 
   setState(nextData) {
-    this.data = nextData;
-    this.render();
-    this.setClose(nextData.visible);
+    this.data = nextData
+    this.render()
+    this.setClose(nextData.visible)
   }
 
   render() {
     if (this.data.visible) {
-      const { name, url, temperament, origin } = this.data.image;
+      const { name, url, temperament, origin } = this.data.image
       
       this.$imageInfo.innerHTML = `
         <div id="modal" class="content-wrapper">

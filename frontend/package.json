@@ -2,6 +2,7 @@
   "name": "fe-assignment-lab-frontend",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "description": "This repository was created by Emily for Roto, Jeffrey and Lucas.",
   "main": "index.html",
   "scripts": {

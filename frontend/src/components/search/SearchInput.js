@@ -1,11 +1,16 @@
 class SearchInput {
   constructor({ $target, onSearch }) {
+    const $wrapper = document.createElement('div');
     const $searchInput = document.createElement("input")
+
+    this.$wrapper = $wrapper
     this.$searchInput = $searchInput
     
+    $wrapper.className = "search-input-container"
     $searchInput.className = "search-input"
     $searchInput.placeholder = "고양이를 검색해보세요.|"
-    $target.appendChild($searchInput)
+    $target.appendChild($wrapper)
+    $wrapper.appendChild($searchInput)
 
     $searchInput.addEventListener('keypress', e => {
       if (e.key === 'Enter') {

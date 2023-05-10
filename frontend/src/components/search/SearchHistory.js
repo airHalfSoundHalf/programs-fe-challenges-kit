@@ -11,7 +11,7 @@ class SearchHistory {
         this.onSearch = onSearch
         this.onAdd = onAdd
         
-        $wrapper.className = 'search-history'
+        $wrapper.className = 'search-history-container'
         $target.appendChild(this.$wrapper)
         $wrapper.appendChild(this.$searchHistory)
 
