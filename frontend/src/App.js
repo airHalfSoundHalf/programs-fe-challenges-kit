@@ -105,7 +105,7 @@ class App {
 
   // 로컬스토리지에 검색키워드 직렬화 저장
   saveKeywordResult(value) {
-    localStorage.setItem(LOCAL_STORAGE_KEY.검색결과, JSON.stringify(value ?? []))
+    localStorage.setItem(LOCALSTORAGE_KEY.검색결과, JSON.stringify(value ?? []))
   }
 
   // 최근 검색키워드 유지
@@ -115,12 +115,12 @@ class App {
   
   init() {
     // 검색된 키워드 데이터 역직렬화
-    const getSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색결과)
-    const deSerialization = JSON.parse(getSearchData)
+    const getSearchedData = localStorage.getItem(LOCALSTORAGE_KEY.검색결과)
+    const deSerialization = JSON.parse(getSearchedData)
     this.setState(deSerialization)
 
     // 로컬스토리지에 저장된 최근키워드 접근
-    const getSaveSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색내역)
-    this.keepInputResult(getSaveSearchData === null ? null : getSaveSearchData.split(',')[0])
+    const getSavedSearchData = localStorage.getItem(LOCALSTORAGE_KEY.검색내역)
+    this.keepInputResult(getSavedSearchData === null ? null : getSavedSearchData.split(',')[0])
   }
 }
