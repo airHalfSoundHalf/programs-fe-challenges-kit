@@ -13,7 +13,7 @@ class App {
     $target.appendChild(this.$wrap)
 
     // 로딩
-    this.loading = new LoadingSpinner({ $target: this.$wrap });
+    this.loading = new LoadingSpinner({ $target: $target })
 
     // 테마모드
     this.toggleChx = new ThemeMode({
@@ -23,60 +23,58 @@ class App {
           isDarkMode
         })
       }
-    });
+    })
 
     // 검색창
     this.searchInput = new SearchInput({
       $target: this.$wrap,
       onSearch: keyword => {
         this.loading.show()
+
         api.fetchCats(keyword).then(({ data }) => {
-          try {
             this.currentPage = 1
-            this.setState(data)
+            this.setState(data ?? [])
             this.saveKeywordResult(data)
             this.keepInputResult(keyword)
 
             this.loading.hide()
-          } catch(error) {
-            console.error('error:', error)
-          }
-        });
+        })
       },
-    });
+    })
 
     // 랜덤버튼
     this.randomButton = new RandomButton({
       $target: this.$wrap,
       onRandomSearch: () => {
         this.loading.show()
+        
         api.fetchRandomCats().then(({ data }) => {
-          try {
             this.setState(data)
+            
             this.loading.hide()
-          } catch(error) {
-            console.error('error:', error)
-          }
         })
       }
-    });
+    })
 
     // 검색결과
     this.searchResult = new SearchResult({
       $target: this.$wrap,
       initialData: this.data,
-      onClick: image => {
-        this.imageInfo.getImageDetail({
-          visible: true,
-          image
-        });
+      onClick: async image => {
+        this.loading.show()
+        
+          await this.imageInfo.getImageDetail({
+            visible: true,
+            image
+          })
+          this.loading.hide()
       },
       onNextPage: () => {
-        this.loading.show()
         const currentPage = this.currentPage + 1
+        this.loading.show()
+
         api.fetchNextPage('cat', currentPage).then(({ data }) => {
-          try {
-            /* @todo: 다음페이지 이동 */
+            /* @todo: 페이지네이션 기능 추가 */
             this.currentPage = currentPage
             window.history.pushState(null, '', currentPage)
 
@@ -84,28 +82,25 @@ class App {
             this.setState(newData)
 
             this.loading.hide()
-          } catch(error) {
-            console.error('error:', error)
-          }
         })
       }
-    });
+    })
 
     // 상세모달
     this.imageInfo = new ImageInfo({
       $target: this.$wrap,
       data: {
         visible: false,
-        image: null
+        image: null,
       },
-    });
+    })
 
     this.init()
   }
 
   setState(nextData) {
-    this.data = nextData;
-    this.searchResult.setState(nextData);
+    this.data = nextData
+    this.searchResult.setState(nextData)
   }
 
   // 로컬스토리지에 검색키워드 직렬화 저장

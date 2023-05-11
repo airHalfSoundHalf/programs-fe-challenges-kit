@@ -175,6 +175,7 @@ body {
   background: none;
   border: none;
   text-decoration: underline;
+  cursor: pointer;
 }
 /* empty */
 .empty-container .empty {
