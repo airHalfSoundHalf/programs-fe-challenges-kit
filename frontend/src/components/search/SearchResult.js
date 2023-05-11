@@ -35,7 +35,7 @@ class SearchResult {
   /**
    * 조건: 스크롤 시, 마지막 엘리먼트 요소에 접근
    * 아이템이 화면에 보일 때 마지막 요소를 찾아서 다음페이지의 데이터를 읽어온다.
-   * 아이템이 화면에 보이면 img src 속성 값을 dataset src값으로 바꾼다.(레이지 로딩, 스켈레톤 스크린)
+   * 아이템이 화면에 보이면 img src 속성 값을 dataset src값으로 바꾼다.(스켈레톤 스크린)
    */
   listObserver = new IntersectionObserver((items, observer) => {
     items.forEach(item => {
