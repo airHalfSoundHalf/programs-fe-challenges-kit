@@ -9,8 +9,6 @@ const API_ENDPOINT =
   const request = async (url) => {
       try {
         const result = await fetch(url)
-        console.log('result.status:', result.status)
-        console.log('REQUEST_ERROR:', REQUEST_ERROR[result.status])
         if(result.status === 200) {
           return result.json()
         } else {
