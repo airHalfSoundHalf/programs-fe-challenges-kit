@@ -1,33 +1,27 @@
-const API_ENDPOINT =
-  "http://localhost:4001"
+import config from './config.js'
 
-  const REQUEST_ERROR = {
-    500: {message: '500: 서버 요청 실패입니다.'},
-    504: {message: '504: 통신지연으로 요청 실패입니다.'}
-  }
+const { API_ENDPOINT, REQUEST_ERROR, setValueByStatusCode } = config
 
-  const request = async (url) => {
-      try {
-        const result = await fetch(url)
-        console.log('result.status:', result.status)
-        console.log('REQUEST_ERROR:', REQUEST_ERROR[result.status])
-        if(result.status === 200) {
-          return result.json()
-        } else {
-          throw REQUEST_ERROR[result.status]
-        }
-      } catch(error) {
-        alert(error.message)
-        return {data: null}
-      }
+const request = async (url) => {
+  try {
+    const result = await fetch(url)
+    if(result.status === 200) {
+      return result.json()
+    } else  {
+      throw (REQUEST_ERROR[result.status])
     }
+  } catch(error) {
+    alert(error.message)
+    setValueByStatusCode(error.errorCode)
+  }
+}
 
 const api = {
   fetchCats: keyword => {
     return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&limit=10`);
   },
   fetchNextPage: (keyword, page) => {
-    return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&page=${page}`);
+    return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&limit=10&page=${page}`);
   },
   fetchCatDetail: id => {
     return request(`${API_ENDPOINT}/api/cats/${id}`);
@@ -37,3 +31,5 @@ const api = {
     return await res.json();
   }
 };
+
+export default api

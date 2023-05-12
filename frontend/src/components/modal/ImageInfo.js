@@ -1,3 +1,5 @@
+import api from '../../api/index.js'
+
 class ImageInfo {
   $imageInfo = null
   data = null
@@ -44,7 +46,7 @@ class ImageInfo {
   render() {
     if (this.data.visible) {
       const { name, url, temperament, origin } = this.data.image
-      
+
       this.$imageInfo.innerHTML = `
         <div id="modal" class="content-wrapper">
           <div class="title">
@@ -83,3 +85,5 @@ class ImageInfo {
     })
   }
 }
+
+export default ImageInfo

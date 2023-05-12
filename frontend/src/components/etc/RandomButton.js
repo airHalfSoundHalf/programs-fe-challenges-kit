@@ -9,6 +9,7 @@ class RandomButton {
     $wrapper.className = 'btn-container'
     $randomButton.className = 'random-button'
     $randomButton.textContent = '랜덤 버튼'
+    
     $target.appendChild($wrapper)
     $wrapper.appendChild($randomButton)
 
@@ -18,3 +19,5 @@ class RandomButton {
   }
   render() {}
 }
+
+export default RandomButton

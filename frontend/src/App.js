@@ -1,3 +1,13 @@
+import LOCALSTORAGE_KEY from './constants/index.js'
+import api from './api/index.js'
+
+import LoadingSpinner from './components/common/LoadingSpinner.js'
+import ThemeMode from './components/common/ThemeMode.js'
+import SearchInput from './components/search/SearchInput.js'
+import RandomButton from './components/etc/RandomButton.js'
+import SearchResult from './components/search/SearchResult.js'
+import ImageInfo from './components/modal/ImageInfo.js'
+
 class App {
   $target = null
   $wrap = null
@@ -103,24 +113,26 @@ class App {
     this.searchResult.setState(nextData)
   }
 
+  init() {
+    // 검색된 키워드 데이터 역직렬화
+    const getSearchedData = localStorage.getItem(LOCALSTORAGE_KEY.검색결과)
+    const deSerialization = JSON.parse(getSearchedData)
+    this.setState(deSerialization)
+
+    // 로컬스토리지에 저장된 최근키워드 접근
+    const getSavedSearchData = localStorage.getItem(LOCALSTORAGE_KEY.검색내역)
+    this.keepInputResult(getSavedSearchData === null ? null : getSavedSearchData.split(',')[0])
+  }
+
   // 로컬스토리지에 검색키워드 직렬화 저장
   saveKeywordResult(value) {
-    localStorage.setItem(LOCAL_STORAGE_KEY.검색결과, JSON.stringify(value ?? []))
+    localStorage.setItem(LOCALSTORAGE_KEY.검색결과, JSON.stringify(value ?? []))
   }
 
   // 최근 검색키워드 유지
   keepInputResult(value) {
     document.querySelector('.search-input').value = value
   }
-  
-  init() {
-    // 검색된 키워드 데이터 역직렬화
-    const getSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색결과)
-    const deSerialization = JSON.parse(getSearchData)
-    this.setState(deSerialization)
-
-    // 로컬스토리지에 저장된 최근키워드 접근
-    const getSaveSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색내역)
-    this.keepInputResult(getSaveSearchData === null ? null : getSaveSearchData.split(',')[0])
-  }
 }
+
+export default App

@@ -1,3 +1,6 @@
+import LOCALSTORAGE_KEY from '../../constants/index.js'
+import uniqueArray from '../../utils/uniqueArray.js'
+
 class SearchHistory {
     $searchHistory = null
     data = null
@@ -31,19 +34,22 @@ class SearchHistory {
      * 일부 값들은 객체 생성 후에도 변경될 수 있는 값이 존재하기 때문
      */
     init() {
-        const getSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색내역)
-        const condition = getSearchData === null ? [] : getSearchData.split(',')
+        const getSearchData = localStorage.getItem(LOCALSTORAGE_KEY.검색내역)
+        let condition = getSearchData === null ? [] : getSearchData.split(',')
+        condition = uniqueArray(condition)
+
         this.setState(condition)
     }
     
     // 검색 시 이전 검색키워드 포함하여 저장
     onSearchAddKeyword(newValue) {
-        const getSearchData = localStorage.getItem(LOCAL_STORAGE_KEY.검색내역)
+        const getSearchData = localStorage.getItem(LOCALSTORAGE_KEY.검색내역)
 
-        const condition = getSearchData === null ? [] : getSearchData.split(',')
+        let condition = getSearchData === null ? [] : getSearchData.split(',')
+        condition = uniqueArray(condition)
         const currentHistories = [newValue, ...condition].slice(0, 5).join(',')
+        localStorage.setItem(LOCALSTORAGE_KEY.검색내역, currentHistories)
 
-        localStorage.setItem(LOCAL_STORAGE_KEY.검색내역, currentHistories)
         this.init()
     }
     
@@ -68,3 +74,5 @@ class SearchHistory {
         })
     }
 }
+
+export default SearchHistory
