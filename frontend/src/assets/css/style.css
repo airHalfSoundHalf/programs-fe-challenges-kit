@@ -8,17 +8,17 @@
 /****************************** common ******************************/
 
 :root {
-  --background: #000;
+  --background: #222;
   --textColor: white;
 }
 
 body[data-theme='light'] {
   background-color: white;
-  color: #000;
+  color: #222;
 }
 
 body[data-theme='dark'] {
-  background-color: #000;
+  background-color: #222;
   color: white;
 }
 
@@ -101,6 +101,7 @@ body {
 .image-info-container .title,
 .image-info-container .description {
   padding: 5px;
+  color: #222;
 }
 
 .image-info-container .title .close {
@@ -172,9 +173,10 @@ body {
 }
 
 .search-history-container ol li button{
-  background: none;
-  border: none;
+  background-color: #fff;
   text-decoration: underline;
+  border: none;
+  vertical-align: text-top;
   cursor: pointer;
 }
 /* empty */
@@ -255,13 +257,13 @@ body {
 @media (prefers-color-scheme: light) {
   body {
     background-color: white;
-    color: #000;
+    color: #222;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #000;
+    background-color: #222;
     color: white;
   }
 }

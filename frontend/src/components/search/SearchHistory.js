@@ -22,6 +22,11 @@ class SearchHistory {
         this.render()
     }
 
+    setState(nextData) {
+        this.data = nextData
+        this.render()
+    }
+
     /**
      * 초기 렌더링 시 초기화 작업
      * @method constructor: 객체의 프로퍼티를 초기화하거나 메소드를 정의하는 작업 수행  
@@ -52,11 +57,14 @@ class SearchHistory {
 
         this.init()
     }
-    
 
-    setState(nextData) {
-        this.data = nextData
-        this.render()
+    bindButtonEvent() {
+        this.$searchHistory.querySelectorAll('li button').forEach(($item, idx) => {
+            $item.addEventListener('click', () => {
+                this.onSearch(this.data[idx])
+                this.onSearchAddKeyword(this.data[idx])
+            })
+        })
     }
 
     render() {
@@ -66,12 +74,8 @@ class SearchHistory {
         `
         ).join('')
 
-        this.$searchHistory.querySelectorAll('li button').forEach(($item, idx) => {
-            $item.addEventListener('click', () => {
-                this.onSearch(this.data[idx])
-                this.onSearchAddKeyword(this.data[idx])
-            })
-        })
+        this.bindButtonEvent()
+
     }
 }
 
