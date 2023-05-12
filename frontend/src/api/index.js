@@ -7,7 +7,7 @@ const API_ENDPOINT =
     400: {errorCode: 400, message: `${400}: 잘못된 요청입니다.`}
   }
 
-  const setValueError = (errorCode) => {
+  const setValueByStatusCode = (errorCode) => {
 		switch (errorCode) {
 			case 504:
 				return {data: null}
@@ -28,7 +28,7 @@ const API_ENDPOINT =
         }
       } catch(error) {
         alert(error.message)
-        setValueError(error.errorCode)
+        setValueByStatusCode(error.errorCode)
       }
     }
 
