@@ -37,3 +37,5 @@ class ScrollNextPage {
         
     }
 }
+
+export default ScrollNextPage

@@ -1,3 +1,5 @@
+import Empty from '../common/Empty.js'
+
 class SearchResult {
   $searchResult = null
   data = null
@@ -71,5 +73,7 @@ class SearchResult {
 
       this.listObserver.observe($item)
     })
+  }
 }
-}
+
+export default SearchResult

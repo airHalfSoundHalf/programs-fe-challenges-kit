@@ -63,3 +63,5 @@ class ThemeMode {
     
     render() {}
   }
+
+  export default ThemeMode

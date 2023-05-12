@@ -1,3 +1,6 @@
+import LOCALSTORAGE_KEY from '../../constants/index.js'
+import SearchHistory from './SearchHistory.js'
+
 class SearchInput {
   constructor({ $target, onSearch }) {
     const $wrapper = document.createElement('div');
@@ -9,6 +12,7 @@ class SearchInput {
     $wrapper.className = "search-input-container"
     $searchInput.className = "search-input"
     $searchInput.placeholder = "고양이를 검색해보세요.|"
+
     $target.appendChild($wrapper)
     $wrapper.appendChild($searchInput)
 
@@ -34,3 +38,5 @@ class SearchInput {
   
   render() {}
 }
+
+export default SearchInput
