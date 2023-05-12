@@ -41,10 +41,11 @@ class App {
     // 검색창
     this.searchInput = new SearchInput({
       $target: this.$wrap,
-      onSearch: keyword => {
+      onSearch: (keyword, limit) => {
         this.loading.show()
 
-        api.fetchCats(keyword).then(({ data }) => {
+        api.fetchCatsWithLimit(keyword, limit).then(({ data }) => {
+          console.log('data:', data)
             this.setState({
               items: data ?? [],
               currentPage: this.DEFAULT_PAGE

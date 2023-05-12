@@ -51,7 +51,7 @@ body {
 .wrapper {
   max-width: 1200px;
   margin: 1.5em auto;
-  column-gap: 1.5em;
+  /* column-gap: 1.5em; */
   overflow: hidden;
 }
 
@@ -78,10 +78,25 @@ body {
   cursor: pointer;
 }
 
+.search-input-container {
+  text-align: center;
+}
+
+
+
 .search-input {
-  width: 100%;
+  width: 85%;
   font-size: 40px;
   padding: 10px 15px;
+}
+
+.limit-count {
+  width: 10%;
+  height: 75px;
+  vertical-align: top;
+  font-size: 20px;
+  margin-left: 10px;
+  
 }
 
 .image-info-container {
@@ -128,6 +143,12 @@ body {
   cursor: pointer;
 }
 
+/* theme */
+.theme-container {
+  float: left;
+  line-height: 75px;
+}
+
 /* random-btn */
 .btn-container {
   display: flex;
@@ -162,6 +183,10 @@ body {
 
 .search-history-container {
   width: 100%;
+}
+
+.search-history-container .title {
+  font-size: 20px;
 }
 
 .search-history-container ol {
