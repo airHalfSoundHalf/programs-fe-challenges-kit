@@ -57,7 +57,7 @@ class SearchResult {
       .map(
         (cat, idx) => `
         <div class="item" data-index=${idx}>
-        <img src='https://via.placeholder.com/200x300' data-src=${cat.url} alt=${cat.name} />
+        <img src='/src/assets/img/preview.png' data-src=${cat?.url || '/src/assets/img/error.png'} alt=${cat?.name || '이미지 오류'} />
       </div>
         `
       )

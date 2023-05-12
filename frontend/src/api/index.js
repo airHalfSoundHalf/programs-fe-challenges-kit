@@ -2,9 +2,21 @@ const API_ENDPOINT =
   "http://localhost:4001"
 
   const REQUEST_ERROR = {
-    500: {message: '500: 서버 요청 실패입니다.'},
-    504: {message: '504: 통신지연으로 요청 실패입니다.'}
+    504: {errorCode: 504, message: `${504}: 통신지연으로 서버요청 실패입니다.`},
+    500: {errorCode: 500, message: `${500}: 서버요청 실패입니다.`},
+    400: {errorCode: 400, message: `${400}: 잘못된 요청입니다.`}
   }
+
+  const setValueError = (errorCode) => {
+		switch (errorCode) {
+			case 504:
+				return {data: null}
+			case 500:
+				return {data: null}
+			case 400:
+				return {data: {}}
+		}
+	}
 
   const request = async (url) => {
       try {
@@ -16,7 +28,7 @@ const API_ENDPOINT =
         }
       } catch(error) {
         alert(error.message)
-        return {data: null}
+        setValueError(error.errorCode)
       }
     }
 
@@ -25,7 +37,7 @@ const api = {
     return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&limit=10`);
   },
   fetchNextPage: (keyword, page) => {
-    return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&page=${page}`);
+    return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&limit=10&page=${page}`);
   },
   fetchCatDetail: id => {
     return request(`${API_ENDPOINT}/api/cats/${id}`);
