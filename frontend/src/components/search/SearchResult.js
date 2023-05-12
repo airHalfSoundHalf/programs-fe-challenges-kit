@@ -53,19 +53,7 @@ class SearchResult {
     })
   })
 
-  render() {
-    if(this.data) {
-    this.$searchResult.innerHTML = this.data
-      .map(
-        (cat, idx) => `
-        <div class="item" data-index=${idx}>
-        <img src='/src/assets/img/preview.png' data-src=${cat?.url || '/src/assets/img/error.png'} alt=${cat?.name || '이미지 오류'} />
-      </div>
-        `
-      )
-      .join('')
-    }
-    
+  bindWitchEvent() {
     this.$searchResult.querySelectorAll('.item').forEach(($item, index) => {
       $item.addEventListener('click', () => {
         this.onClick(this.data[index])
@@ -73,6 +61,22 @@ class SearchResult {
 
       this.listObserver.observe($item)
     })
+  }
+
+  render() {
+    if(this.data) {
+    this.$searchResult.innerHTML = this.data
+      .map(
+        (cat, idx) => `
+        <li class="item" data-index=${idx}>
+        <img src='/src/assets/img/preview.png' data-src=${cat?.url || '/src/assets/img/error.png'} alt=${cat?.name || '이미지 오류'} />
+      </div>
+        `
+      )
+      .join('')
+    }
+
+    this.bindWitchEvent()
   }
 }
 

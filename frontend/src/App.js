@@ -11,8 +11,11 @@ import ImageInfo from './components/modal/ImageInfo.js'
 class App {
   $target = null
   $wrap = null
-  data = []
-  currentPage = 1
+  DEFAULT_PAGE = 1
+  data = {
+    items: [],
+    currentPage: this.DEFAULT_PAGE
+  }
 
   constructor($target) {
     this.$target = $target
@@ -42,8 +45,10 @@ class App {
         this.loading.show()
 
         api.fetchCats(keyword).then(({ data }) => {
-            this.currentPage = 1
-            this.setState(data ?? [])
+            this.setState({
+              items: data ?? [],
+              currentPage: this.DEFAULT_PAGE
+            })
             this.saveKeywordResult(data)
             this.keepInputResult(keyword)
 
@@ -59,7 +64,10 @@ class App {
         this.loading.show()
         
         api.fetchRandomCats().then(({ data }) => {
-            this.setState(data)
+            this.setState({
+              items: data,
+              currentPage: this.DEFAULT_PAGE
+            })
             
             this.loading.hide()
         })
@@ -69,7 +77,7 @@ class App {
     // 검색결과
     this.searchResult = new SearchResult({
       $target: this.$wrap,
-      initialData: this.data,
+      initialData: this.data.items,
       onClick: async image => {
         this.loading.show()
         
@@ -80,16 +88,17 @@ class App {
           this.loading.hide()
       },
       onNextPage: () => {
-        const currentPage = this.currentPage + 1
+        const currentPage = this.data.currentPage + 1
         this.loading.show()
 
         api.fetchNextPage('cat', currentPage).then(({ data }) => {
             /* @todo: 페이지네이션 기능 추가 */
-            this.currentPage = currentPage
             window.history.pushState(null, '', currentPage)
-
-            let newData = this.data.concat(data)
-            this.setState(newData)
+            let newData = this.data.items.concat(data)
+            this.setState({
+              items: newData,
+              currentPage: currentPage
+            })
 
             this.loading.hide()
         })
@@ -110,14 +119,17 @@ class App {
 
   setState(nextData) {
     this.data = nextData
-    this.searchResult.setState(nextData)
+    this.searchResult.setState(nextData.items)
   }
 
   init() {
     // 검색된 키워드 데이터 역직렬화
     const getSearchedData = localStorage.getItem(LOCALSTORAGE_KEY.검색결과)
     const deSerialization = JSON.parse(getSearchedData)
-    this.setState(deSerialization)
+    this.setState({
+      items: deSerialization,
+      currentPage: this.DEFAULT_PAGE
+    })
 
     // 로컬스토리지에 저장된 최근키워드 접근
     const getSavedSearchData = localStorage.getItem(LOCALSTORAGE_KEY.검색내역)

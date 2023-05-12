@@ -16,6 +16,11 @@ class Empty {
 
         this.render()
     }
+    
+    setState(nextData) {
+      this.data = nextData
+      this.render()
+    }
 
     show(data) {
         this.setState({
@@ -23,11 +28,6 @@ class Empty {
           isEmpty: data === undefined
         })
       }
-
-    setState(nextData) {
-        this.data = nextData
-        this.render()
-    }
 
     render() {
       if(this.data.show) {
@@ -38,8 +38,7 @@ class Empty {
             this.$empty.innerHTML = `<p class='empty'>검색결과가 없습니다.</p>`
             this.$empty.style.display = 'block'
           }
-      }
-      else {
+      } else {
         this.$empty.innerHTML = ''
           this.$empty.style.display = 'none'
       }

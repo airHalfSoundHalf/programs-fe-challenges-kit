@@ -12,21 +12,21 @@ class LoadingSpinner {
         this.render()
     }
 
-    show() {
-        this.setState({
-          show: true,
-        })
-      }
-    
-      hide() {
-        this.setState({
-          show: false,
-        })
-      }
-
     setState(nextData) {
-        this.state = nextData
-        this.render()
+      this.state = nextData
+      this.render()
+    }
+
+    show() {
+      this.setState({
+        show: true,
+      })
+    }
+
+    hide() {
+      this.setState({
+        show: false,
+      })
     }
 
   render() {
