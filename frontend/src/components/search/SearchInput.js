@@ -24,10 +24,27 @@ class SearchInput {
         const prevSearchValue = localStorage.getItem(LOCALSTORAGE_KEY.검색내역).split(',')[0]
         if(prevSearchValue === e.target.value) return window.alert('동일한 검색어입니다. 다른 키워드를 입력해주세요.')
 
-        onSearch(e.target.value)
+        onSearch(e.target.value, this.$limitCount.value)
         this.SearchHistory.onSearchAddKeyword(e.target.value)
       }
     })
+
+    // 옵션 셀렉트
+    const $limitCount = document.createElement('select')
+    this.$limitCount = $limitCount
+    this.$limitCount.className = 'limit-count'
+
+    let SELECT_OPTIONS = [10, 25, 50]
+    SELECT_OPTIONS.map((option) => {
+      const $selectOption = document.createElement('option')
+
+      $selectOption.value = option
+      $selectOption.textContent = `${option}개`
+      
+      $limitCount.appendChild($selectOption)
+    })
+
+    $wrapper.append($limitCount)
 
     this.SearchHistory = new SearchHistory({
       $target,

@@ -18,7 +18,10 @@ const request = async (url) => {
 
 const api = {
   fetchCats: keyword => {
-    return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&limit=20`);
+    return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
+  },
+  fetchCatsWithLimit: (keyword, limit) => {
+    return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&limit=${limit}`);
   },
   fetchNextPage: (keyword, page) => {
     return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&limit=20&page=${page}`);

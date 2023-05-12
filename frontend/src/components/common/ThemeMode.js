@@ -11,7 +11,8 @@ class ThemeMode {
        * 2. 참조
        * 3. input 요소를 인스턴스의 데이터 속성으로 추가하고, 상태가 변경되면 자동으로 화면을 업데이트한다.
        */
-       this.$toggleChx = $toggleChx    
+       this.$wrapper = $wrapper    
+       this.$toggleChx = $toggleChx 
 
       $wrapper.className = 'theme-container'
       $toggleChx.type = 'checkbox'

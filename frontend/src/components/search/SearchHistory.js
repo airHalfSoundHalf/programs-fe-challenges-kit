@@ -7,15 +7,21 @@ class SearchHistory {
 
     constructor({ $target, onSearch, onAdd }) {
         const $wrapper = document.createElement('div')
+        const $title = document.createElement('h2')
         const $searchHistory = document.createElement('ol')
 
         this.$wrapper = $wrapper
+        this.$title = $title
         this.$searchHistory = $searchHistory
         this.onSearch = onSearch
         this.onAdd = onAdd
         
         $wrapper.className = 'search-history-container'
+        $title.className = 'title'
+        $title.textContent = '검색내역'
+
         $target.appendChild(this.$wrapper)
+        $wrapper.appendChild(this.$title)
         $wrapper.appendChild(this.$searchHistory)
 
         this.init()
