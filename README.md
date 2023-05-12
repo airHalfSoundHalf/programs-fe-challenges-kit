@@ -35,7 +35,7 @@ https://github.com/learn-programmers/KDC_jsTest/issues/3#issue-1674154937
 </div>
 </details>
 
-- 진행중
+- 진행완료 
 
 <br >
 
@@ -46,3 +46,5 @@ https://github.com/learn-programmers/KDC_jsTest/issues/3#issue-1674154937
 https://github.com/learn-programmers/KDC_jsTest/issues/4#issue-1674155165
 </div>
 </details>
+
+- 진행완료 
